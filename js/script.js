@@ -6,6 +6,7 @@ let popUpTimer = null
 let potato = null
 let lastPotatoNumber = null
 let potatoImg = document.getElementsByClassName('potato')
+let timeUp = false
 
 // DOM loads, add event handler for start, reset buttons.
 document.addEventListener('DOMContentLoaded', () => {
@@ -19,6 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
 //Start the Game
 const startGame = () => {
     let score = 0
+    timeUp = true
     clearInterval(time)
     clearInterval(interval)
     interval = setInterval(countdown, 1000)
@@ -51,10 +53,23 @@ const popUp = () => {
     let maxUpTime = 2500
     let time = randomTime(minUpTime, maxUpTime)
     randomPotato()
-    document.getElementsByClassName('potato').style.visibility = "visible"
+    potatoes = document.getElementsByClassName('potato')
+    document.getElementsByClassName('potato')
+    if (potatoes) {
+        for (let i = 0; i < potatoes.length; i++) {
+            if (timeUp === false) {
+                potatoes[i].style.visibility = "visible"
+            }
+        }
+    }
     popUpTimer = setTimeout(() => {
-        document.getElementsByClassName('potato').style.visibility = "hidden"
-        if ( timeUp === false) {
+        document.getElementsByClassName('potato')
+        if (potatoes) {
+            for (let i = 0; i < potatoes.length; i++) {
+                potatoes[i].style.visibility = "hidden"
+            }
+        }
+        if (timeUp === false) {
             popUp()
         }
     }, time)
@@ -63,7 +78,13 @@ const popUp = () => {
 
 // Grab potato function
 const grab = () => {
-    document.getElementsByClassName('potato').style.visibility = "hidden"
+    potatoes = document.getElementsByClassName('potato')
+    document.getElementsByClassName('potato')
+    if (potatoes) {
+        for (let i = 0; i < potatoes.length; i++) {
+            potatoes[i].addEventListener('click', grab)
+        }
+    }
     score++
     document.getElementById('score-out')
 }
@@ -78,11 +99,11 @@ const randomTime = (min, max) => {
    
 
 // Randomize potato to display Function
-const randomPotato = () => {
+const randomPotato = (potatoes) => {
     let x = Math.floor(Math.random() * lastPotatoNumber)
-    var potato
+    var potato = potatoes * (x)
     if (x === lastPotatoNumber) {
-        return randomPotato()
+        return randomPotato(potatoes)
     }
     lastPotatoNumber = x
     return potato
