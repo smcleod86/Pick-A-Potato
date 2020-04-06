@@ -1,12 +1,17 @@
 
 let time = 30
 let interval
-
+let score = 0
+let popUpTimer = null
+let potato = null
+let lastPotatoNumber = null
+let potatoImg = document.getElementsByClassName('potato')
 
 // DOM loads, add event handler for start, reset buttons.
 document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('start-button').addEventListener('click', startGame)
     document.getElementById('timer').textContent = time
+    document.getElementById('score-out').textContent = score
     document.getElementById('prompt').textContent = "GET READY!!!"
 })
 
@@ -14,12 +19,16 @@ document.addEventListener('DOMContentLoaded', () => {
 //Start the Game
 const startGame = () => {
     let score = 0
+    clearInterval(time)
     clearInterval(interval)
     interval = setInterval(countdown, 1000)
     document.getElementById('start-button').textContent = 'Restart Game'
     document.getElementById('timer').textContent = time
     document.getElementById('score-out').textContent = score
-
+    popUp()
+    grabPotato()
+    grab()
+    randomPotato()
 }
 
 
@@ -36,22 +45,66 @@ const countdown = () => {
     }
 
 
+// Pop up function
+const popUp = () => {
+    let minUpTime = 1200
+    let maxUpTime = 2500
+    let time = randomTime(minUpTime, maxUpTime)
+    randomPotato()
+    document.getElementsByClassName('potato').style.visibility = "visible"
+    popUpTimer = setTimeout(() => {
+        document.getElementsByClassName('potato').style.visibility = "hidden"
+        if ( timeUp === false) {
+            popUp()
+        }
+    }, time)
+}
+
+
+// Grab potato function
+const grab = () => {
+    document.getElementsByClassName('potato').style.visibility = "hidden"
+    score++
+    document.getElementById('score-out')
+}
+
+
+// Randomize pop-up time Function
+let min = 1200
+let max = 2500
+const randomTime = (min, max) => {
+    return Math.round(Math.random() * (max - min) + min)
+}
+   
+
+// Randomize potato to display Function
+const randomPotato = () => {
+    let x = Math.floor(Math.random() * lastPotatoNumber)
+    var potato
+    if (x === lastPotatoNumber) {
+        return randomPotato()
+    }
+    lastPotatoNumber = x
+    return potato
+}
+
+
 // Function to add click event
-const addGrabPotato = () => {
-    let potato = document.querySelectorAll('#gameBox')
+const grabPotato = () => {
+    let potatoImg = document.querySelectorAll('.potato')
     // Loop through each
-    for (let i = 0; i < potato.length; i++) {
-        potato[i].addEventListener('click', grabPotato)
+    for (let i = 0; i < potatoImg.length; i++) {
+        potatoImg[i].addEventListener('click', grabPotato)
     }
 }
 
 
 // Function to remove click events
 const removeGrabPotato = () => {
-    let potato = document.querySelectorAll('#gameBox')
+    let potatoImg = document.querySelectorAll('.potato')
         // Loop through each
-    for (let i = 0; i < potato.length; i++) {
-        potato[i].removeEventListener('click', grabPotato)
+    for (let i = 0; i < potatoImg.length; i++) {
+        potatoImg[i].removeEventListener('click', removeGrabPotato)
     }   
 }
 
@@ -59,39 +112,7 @@ const removeGrabPotato = () => {
 // Game Over Function
 const gameOver = () => {
     clearInterval(interval)
-}
-
-
-// Function to check hit
-
-
-
-
-// Randomize pop-up time Function
-const randomTime = (min, max) => {
-    return Math.round(Math.random() * (max - min) + min)
-}
-   
-
-// Randomize hole Function
-const randomHole = (holes) => {
-    const x = Math.floor(Math.random() * holes.length)
-    const hole = holes[x]
-    if (hole == lastHole) {
-        return randomHole(holes)
-    }
-    lastHole = hole
-    return hole
-}
-
-
-// Surprise function
-const surprise = () => {
-    const randtime = randomTime(500, 1200)
-    const hole = randomHole(holes)
-    hole.classList.add('up')
-    setTimeout(() => {
-        hole.classList.remove('up')
-        if(!timeUp) surprise()
-    }, randtime)
+    clearInterval(popUpTimer)
+    timeUp = true
+    removeGrabPotato()
 }

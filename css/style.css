@@ -45,6 +45,8 @@ header {
     width: auto;
     text-align: center;
     margin-top: 40px;
+    position: absolute;
+    z-index: 100;
 }
 
 .potato {
@@ -52,6 +54,13 @@ header {
     width: auto;
     text-align: center;
     margin-top: 10px;
+    position: absolute;
+    visibility: hidden;
+
+}
+
+.potato.up {
+    bottom: 0;
 }
 
 .timer, .score-out {
