@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('start-button').addEventListener('click', startGame)
     document.getElementById('timer').textContent = time
     document.getElementById('score-out').textContent = score
-    document.getElementById('prompt').textContent = "GET READY!!!"
+    document.getElementById('prompt').textContent = "Click Start and Grab the Potatoes!"
 })
 
 
@@ -27,10 +27,10 @@ const startGame = () => {
     document.getElementById('start-button').textContent = 'Restart Game'
     document.getElementById('timer').textContent = time
     document.getElementById('score-out').textContent = score
+    randomPotato(potatoes)
     popUp()
     grabPotato()
     grab()
-    randomPotato()
 }
 
 
@@ -78,11 +78,10 @@ const popUp = () => {
 
 // Grab potato function
 const grab = () => {
-    potatoes = document.getElementsByClassName('potato')
-    document.getElementsByClassName('potato')
+    potatoes = document.querySelectorAll('.potato')
     if (potatoes) {
         for (let i = 0; i < potatoes.length; i++) {
-            potatoes[i].addEventListener('click', grab)
+           potatoes[i].addEventListener('click', grab)
         }
     }
     score++
@@ -101,7 +100,7 @@ const randomTime = (min, max) => {
 // Randomize potato to display Function
 const randomPotato = (potatoes) => {
     let x = Math.floor(Math.random() * lastPotatoNumber)
-    var potato = potatoes * (x)
+    let potato = potatoes * (x)
     if (x === lastPotatoNumber) {
         return randomPotato(potatoes)
     }
@@ -112,20 +111,20 @@ const randomPotato = (potatoes) => {
 
 // Function to add click event
 const grabPotato = () => {
-    let potatoImg = document.querySelectorAll('.potato')
+    let potatoImg = document.getElementsByClassName('.potato')
     // Loop through each
     for (let i = 0; i < potatoImg.length; i++) {
-        potatoImg[i].addEventListener('click', grabPotato)
+        potatoImg.addEventListener('click', grab)
     }
 }
 
 
 // Function to remove click events
 const removeGrabPotato = () => {
-    let potatoImg = document.querySelectorAll('.potato')
+    let potatoImg = document.getElementsByClassName('.potato')
         // Loop through each
     for (let i = 0; i < potatoImg.length; i++) {
-        potatoImg[i].removeEventListener('click', removeGrabPotato)
+        potatoImg.removeEventListener('click', removeGrabPotato)
     }   
 }
 
@@ -135,5 +134,5 @@ const gameOver = () => {
     clearInterval(interval)
     clearInterval(popUpTimer)
     timeUp = true
-    removeGrabPotato()
+    //removeGrabPotato()
 }

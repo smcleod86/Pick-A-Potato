@@ -53,9 +53,6 @@ header {
     width: auto;
     text-align: center;
     margin-top: 10px;
-    position: absolute;
-    visibility: hidden;
-
 }
 
 .potato.up {
