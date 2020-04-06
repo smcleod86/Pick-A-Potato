@@ -1,0 +1,76 @@
+.grab {cursor: grab;}
+
+
+body {
+    background-image: url(../img/potato-backgound.jpg);
+    }
+
+header {
+    font-size: 20px;
+    text-shadow: 2px 2px 4px darkred;
+    text-align: center;
+}
+
+.game-box {    
+    width: 850px;
+    height: 550px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.row {
+    margin: 0 auto;
+    display: inline-block;
+}
+
+.box {
+    width: 150px;
+	height: 150px;
+	padding: 10px;
+	float: left;
+    overflow: hidden;
+    text-align: center;
+}
+
+.container {
+    background-color: rgba(223, 198, 165, 0.603);
+    height: 140px;
+    width: 700px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.mound {
+    height: 140px;
+    width: auto;
+    text-align: center;
+    margin-top: 40px;
+}
+
+.potato {
+    height: 140px;
+    width: auto;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.timer, .score-out {
+    font-size: 25px;
+}
+
+h2 {
+    text-decoration: underline;
+}
+
+#prompt {
+    font-size: 25px;
+    padding-top: 30px;
+    width: 300px;
+    height: 70px;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+
+#box1, #box2, #box3, #box4, #box5, #box6, #box7, #box8, #box9, #box10, #box11, #box12 {
+background-color: rgba(223, 198, 165, 0.603);
+}
